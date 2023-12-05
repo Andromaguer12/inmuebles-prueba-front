@@ -1,0 +1,173 @@
+@import '../../../constants/styling/theme/variables.scss';
+
+.headerContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 10vh;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  background-image: linear-gradient(to bottom, $primary-color-alt, transparent);
+
+  .delimeter {
+    max-width: $max-width-layout;
+    width: 100%;
+    margin: auto 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+
+    @media screen and (max-width: 950px) {
+      padding: 0 30px;
+      box-sizing: border-box;
+    }
+
+    .logoAndSearch {
+      .image {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      @media screen and (max-width: 950px) {
+        display: none;
+      }
+
+      .headerButton {
+        font-family: $primary-font;
+        color: $white;
+        background: transparent;
+        outline: none;
+        border: none;
+        margin: 15px 20px !important;
+        cursor: pointer;
+        font-size: 12px;
+        text-decoration: none;
+        border: 0.5px solid transparent;
+        border-radius: 7px;
+        padding: 7px;
+        &:hover {
+          transition: all ease 500ms;
+          border: 0.5px solid #fafafa31;
+          background-image: linear-gradient(
+            to right bottom,
+              $primary-color-alt-transparent,
+              transparent,
+              transparent,
+              $primary-color-alt-transparent,
+            );
+          p {
+            font-size: 14px;
+            color: #fafafa;
+          }
+        }
+      }
+      .iconButtons {
+        margin-right: 10px !important;
+        border: 0.5px solid transparent;
+        border-radius: 7px;
+        padding: 7px;
+        &:hover {
+          transition: all ease 500ms;
+          border: 0.5px solid #fafafa31;
+          background-image: linear-gradient(
+            to right bottom,
+            $primary-color-alt-transparent,
+            transparent,
+            transparent,
+            $primary-color-alt-transparent,
+          );
+          p {
+            font-size: 14px;
+            color: #fafafa;
+          }
+        }
+      }
+    }
+
+    .responsiveButtons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      display: none;
+
+      @media screen and (max-width: 950px) {
+        display: block;
+      }
+
+      .iconButtons {
+        margin-right: 10px !important;
+        border: 0.5px solid transparent;
+        border-radius: 7px;
+        padding: 7px;
+        transition: all ease 500ms;
+        border: 0.5px solid #fafafa31;
+        background-image: linear-gradient(
+          to right bottom,
+          #000000,
+          #7a7a7a7a,
+          #7a7a7a7a,
+          #000000
+        );
+        p {
+          font-size: 14px;
+          color: #fafafa;
+        }
+      }
+    }
+
+    .socialButtonsResponsive {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+    }
+  }
+}
+
+.genericButton {
+  font-family: $primary-font;
+  color: #000;
+  background: transparent;
+  outline: none;
+  border: none;
+  font-size: 12px;
+  text-decoration: none;
+  border: 0.5px solid transparent;
+  border-radius: 7px;
+  padding: 7px;
+  cursor: pointer;
+  margin-left: auto;
+  border: 0.5px solid #fafafa31;
+  background-image: linear-gradient(
+    to right bottom,
+    transparent,
+    #e7e7e7,
+    #e7e7e7,
+    transparent
+  );
+  &:hover {
+    transition: all ease 500ms;
+    border: 0.5px solid #fafafa31;
+    background-image: linear-gradient(
+      to right bottom,
+      transparent,
+      #7a7a7a7a,
+      #7a7a7a7a,
+      transparent
+    );
+    p {
+      font-size: 14px;
+      color: #fafafa;
+    }
+  }
+}

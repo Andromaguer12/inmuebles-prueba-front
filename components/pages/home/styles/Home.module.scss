@@ -1,0 +1,1044 @@
+@import '../../../../constants/styling/theme/variables.scss';
+
+.homePageContainer {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+
+  .shadow{
+    width: 100%;
+    height: 100%;
+    background: $primary-color-alt-transparent;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 50px;
+    box-sizing: border-box;
+
+    .titles{
+      color: #fff;
+    }
+  }
+
+  .imageContainer {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-width: 900px) {
+    height: fit-content;
+  }
+}
+
+.aboutUsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $white;
+  padding: 0;
+
+  .maxContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px;
+    max-width: $max-width-layout;
+
+    .genericButton {
+      font-family: $primary-font;
+      color: #000;
+      background: transparent;
+      outline: none;
+      border: none;
+      font-size: 12px;
+      text-decoration: none;
+      border: 0.5px solid transparent;
+      border-radius: 7px;
+      padding: 7px;
+      cursor: pointer;
+      margin-left: auto;
+      border: 0.5px solid #fafafa31;
+      background-image: linear-gradient(
+        to right bottom,
+        transparent,
+        #e7e7e7,
+        #e7e7e7,
+        transparent
+      );
+      &:hover {
+        transition: all ease 500ms;
+        border: 0.5px solid #fafafa31;
+        background-image: linear-gradient(
+          to right bottom,
+          transparent,
+          #7a7a7a7a,
+          #7a7a7a7a,
+          transparent
+        );
+        p {
+          font-size: 14px;
+          color: #fafafa;
+        }
+      }
+    }
+
+    .containerRow {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      @media screen and (max-width: 655px) {
+        flex-direction: column;
+      }
+    }
+    .mixedProjectsContainer {
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding-top: 30px;
+      box-sizing: border-box;
+
+      .error {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sectionTitle {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          font-size: 45px;
+          color: $secondary-text-color;
+          font-family: $secondary-font;
+          margin-bottom: 20px;
+
+          @media screen and (max-width: 855px) {
+            font-size: 35px;
+            text-align: left;
+          }
+
+          @media screen and (max-width: 755px) {
+            font-size: 30px;
+            text-align: left;
+          }
+        }
+
+        .section {
+          font-size: 12px;
+          font-family: $secondary-font;
+          color: #7a7a7a;
+          @media screen and (max-width: 855px) {
+            text-align: right;
+          }
+        }
+
+        @media screen and (max-width: 855px) {
+        }
+      }
+
+      .buildings{
+        width: 100%;
+        display: flex;
+        flex-direction: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+
+        .paginationContainer {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          padding: 20px 0;
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        font-family: $tertiary-font;
+        color: #7a7a7a;
+        margin-bottom: 24px;
+      }
+    }
+
+    .dividerVertical {
+      background-image: linear-gradient(to bottom, #fff, #e7e7e7, #fff);
+      width: 1px;
+      height: 400px;
+
+      @media screen and (max-width: 655px) {
+        display: none;
+      }
+    }
+
+    .landingContainersMain {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      width: 49.5%;
+      height: 100%;
+      box-sizing: border-box;
+
+      @media screen and (max-width: 655px) {
+        width: 100%;
+      }
+
+      p {
+        width: 100%;
+      }
+
+      .title {
+        font-size: 45px;
+        color: $secondary-text-color;
+        font-family: $secondary-font;
+        margin-bottom: 20px;
+        text-align: center;
+
+        @media screen and (max-width: 855px) {
+          font-size: 30px;
+          width: 100%;
+        }
+      }
+
+      .text {
+        font-size: 20px;
+        color: $secondary-text-color;
+        font-family: $tertiary-font;
+        margin-bottom: 7.5px;
+        text-align: center;
+
+        @media screen and (max-width: 855px) {
+          font-size: 15px;
+        }
+      }
+
+      .developer {
+        font-size: 14px;
+        color: #fafafa;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: center;
+        width: fit-content;
+        padding: 5px 7.5px;
+        border-radius: 5px;
+        border: 0.5px solid #fafafa31;
+        background-image: linear-gradient(
+          to right bottom,
+          $primary-color-alt-transparent,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent
+        );
+
+        @media screen and (max-width: 855px) {
+          font-size: 15px;
+        }
+      }
+
+      .note {
+        font-size: 15px;
+        color: $secondary-color;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: center;
+        width: 90%;
+
+        @media screen and (max-width: 855px) {
+          font-size: 13.5px;
+        }
+      }
+
+      .landingImages {
+        width: 400px;
+        height: auto;
+        margin: 0 auto;
+
+        @media screen and (max-width: 855px) {
+          width: 300px;
+        }
+      }
+
+      .landingButtons {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+
+        .buttonsTexts {
+          font-family: $tertiary-font;
+          text-transform: none;
+          font-size: 12px;
+          text-decoration: none;
+        }
+
+        .buttonsTextsLink {
+          font-family: $tertiary-font;
+          text-transform: none;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .landingContainers {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      justify-content: center;
+      width: 49.5%;
+      height: 100%;
+      box-sizing: border-box;
+
+      @media screen and (max-width: 655px) {
+        width: 100%;
+      }
+
+      p {
+        width: 100%;
+      }
+
+      .title {
+        font-size: 45px;
+        color: $secondary-text-color;
+        font-family: $secondary-font;
+        margin-bottom: 20px;
+        text-align: center;
+
+        @media screen and (max-width: 855px) {
+          font-size: 30px;
+          text-align: left;
+          width: 100%;
+        }
+      }
+
+      .text {
+        font-size: 20px;
+        color: $secondary-text-color;
+        font-family: $tertiary-font;
+        margin-bottom: 7.5px;
+        text-align: center;
+
+        @media screen and (max-width: 855px) {
+          font-size: 15px;
+          text-align: right;
+        }
+      }
+
+      .developer {
+        font-size: 14px;
+        color: #fafafa;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: center;
+        width: fit-content;
+        padding: 5px 7.5px;
+        border-radius: 5px;
+        border: 0.5px solid #fafafa31;
+        background-image: linear-gradient(
+          to right bottom,
+          $primary-color-alt-transparent,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent
+        );
+
+        @media screen and (max-width: 855px) {
+          font-size: 15px;
+        }
+      }
+
+      .note {
+        font-size: 15px;
+        color: $secondary-color;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: center;
+        width: 90%;
+
+        @media screen and (max-width: 855px) {
+          font-size: 13.5px;
+        }
+      }
+
+      .landingImages {
+        width: 400px;
+        height: auto;
+        margin: 0 auto;
+
+        @media screen and (max-width: 855px) {
+          width: 300px;
+        }
+      }
+
+      .landingButtons {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+
+        .buttonsTexts {
+          font-family: $tertiary-font;
+          text-transform: none;
+          font-size: 12px;
+          text-decoration: none;
+        }
+
+        .buttonsTextsLink {
+          font-family: $tertiary-font;
+          text-transform: none;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .educationContainer {
+      width: 100%;
+      .title {
+        font-size: 35px;
+        color: $secondary-text-color;
+        font-family: $secondary-font;
+        margin-bottom: 20px;
+        text-align: left;
+
+        @media screen and (max-width: 855px) {
+          font-size: 35px;
+        }
+
+        @media screen and (max-width: 755px) {
+          font-size: 30px;
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        font-family: $tertiary-font;
+        color: #7a7a7a;
+        margin-bottom: 24px;
+      }
+
+      .universityContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-sizing: border-box;
+        border-radius: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        // box-shadow: 0 0.5rem 1rem -0.25rem #5c5c5c;
+        background-image: linear-gradient(
+          to top right,
+          $secondary-color,
+          $black
+        );
+
+        .icon {
+          width: 70px;
+          margin-right: 10px;
+          margin-bottom: auto;
+
+          .uniLogo {
+            width: 70px;
+            height: auto;
+            background: #fff;
+            padding: 3px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            // box-shadow: 0 0.5rem 1rem -0.25rem #5c5c5c;
+          }
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+
+          .info1 {
+            font-size: 15px;
+            color: #fff;
+            font-weight: 800;
+            font-family: $tertiary-font;
+            text-align: left;
+            margin-bottom: 5px;
+          }
+          .info2 {
+            font-size: 14px;
+            color: #e7e7e7;
+            font-family: $tertiary-font;
+            text-align: left;
+            margin-bottom: 5px;
+          }
+          .info3 {
+            font-size: 14px;
+            color: #7a7a7a;
+            font-family: $tertiary-font;
+            text-align: left;
+          }
+          .info4 {
+            font-size: 14px;
+            color: #fafafa;
+            font-family: $tertiary-font;
+            text-align: left;
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.skillsInfoContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e7e7e7;
+  overflow-x: auto;
+  padding: 0;
+  scrollbar-width: none;
+
+  .title {
+    font-size: 15px;
+    color: #7a7a7a;
+    font-family: $primary-font;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .maxContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+
+    @media screen and (max-width: 1200px) {
+      justify-content: flex-start;
+    }
+
+    .skillCard {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin: 0 12px;
+      min-width: 250px;
+      max-width: 400px;
+
+
+      .icon{
+        margin-right: 20px;
+      }
+
+      .title {
+        font-size: 15px;
+        color: $black;
+        font-family: $secondary-font;
+        margin: 10px 0;
+        margin-bottom: 2px;
+        text-align: left;
+        font-weight: bold;
+        width: 90%;
+      }
+
+      .note {
+        font-size: 12px;
+        color: $black;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: left;
+        width: 90%;
+      }
+
+      .onlyImage {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .maxContainerSkillsInfoContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+
+    @media screen and (max-width: 1200px) {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .skillCard {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 12px;
+      min-width: 250px;
+      max-width: 250px;
+
+      .title {
+        font-size: 15px;
+        color: $black;
+        font-family: $secondary-font;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        width: 90%;
+      }
+
+      .note {
+        font-size: 12px;
+        color: $black;
+        font-family: $tertiary-font;
+        margin-bottom: 20px;
+        text-align: center;
+        width: 90%;
+      }
+
+      .onlyImage {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.parentContainer {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  transition: all 1s ease;
+  box-sizing: border-box;
+
+  .maxContainer {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: $max-width-layout;
+
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background-image: linear-gradient(to right, transparent, #e7e7e7, transparent);
+    }
+
+    .divider2 {
+      width: 100%;
+      height: 1px;
+      background-image: linear-gradient(to right, transparent, #e7e7e7, #b8b8b8, #e7e7e7, transparent);
+    }
+
+    .mixedProjectsContainer {
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding-top: 30px;
+      box-sizing: border-box;
+
+      .sectionTitle {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+          font-size: 45px;
+          color: $secondary-text-color;
+          font-family: $secondary-font;
+          margin-bottom: 20px;
+
+          @media screen and (max-width: 855px) {
+            font-size: 35px;
+            text-align: left;
+          }
+
+          @media screen and (max-width: 755px) {
+            font-size: 30px;
+            text-align: left;
+          }
+        }
+
+        .section {
+          font-size: 12px;
+          font-family: $secondary-font;
+          color: #7a7a7a;
+          @media screen and (max-width: 855px) {
+            text-align: right;
+          }
+        }
+
+        @media screen and (max-width: 855px) {
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        font-family: $tertiary-font;
+        color: #7a7a7a;
+        margin-bottom: 24px;
+      }
+    }
+
+    .cardsContainer {
+      width: 100%;
+      display: flex; 
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .searchInputs {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      margin-top: 20px;
+
+      @media screen and (max-width: 880px) {
+        flex-direction: column;
+        height: fit-content;
+      }
+
+      .button {
+        width: 150px;
+        padding: 10px;
+        border: 0.5px solid #fafafa31;
+        color: #fff;
+        margin-top: 20.89px;
+        height: 58.88px;
+        background-image: linear-gradient(
+          to right bottom,
+          $primary-color-alt-transparent,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent-2,
+          $primary-color-alt-transparent
+        );
+
+        @media screen and (max-width: 750px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+
+      .formContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .filtersHeader{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          
+          @media screen and (max-width: 750px) {
+            flex-direction: column;
+          }
+
+          .input {
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+
+            @media screen and (max-width: 750px) {
+              width: 100%;
+            }
+          }
+        }
+
+        .filters {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: flex-start;
+          justify-content: space-between;
+
+          @media screen and (max-width: 600px) {
+            display: none;
+          }
+
+          .list{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 200px;
+            margin-bottom: 20px;
+
+            @media screen and (max-width: 750px) {
+              width: 100%;
+            }
+
+            .title {
+              font-weight: 600;
+              font-family: $primary-font;
+              font-size: 14px;
+              margin-bottom: 10px;
+            }
+
+            .listOfCheckboxes{
+              padding: 10px 10px;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              width: 100%;
+              max-height: 200px;
+              overflow: auto;
+              overflow-x: hidden;
+              &::-webkit-scrollbar {
+                width: 5px;
+              };
+              &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+              }
+              &::-webkit-scrollbar-thumb {
+                background: #888;
+              }
+              &::-webkit-scrollbar-thumb:hover {
+                background: #555,
+              }
+            }
+          }
+
+          .timeFilters {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 280px;
+
+            .title {
+              font-weight: 600;
+              font-family: $primary-font;
+              font-size: 14px;
+              margin-bottom: 10px;
+            }
+
+            .fromTo{
+              width: 100%;
+              margin-top: 10px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+            }
+          }
+        }
+
+        .filtersResponsive {
+          width: 100%;
+          display: none;
+          
+          @media screen and (max-width: 600px) {
+            display: block;
+          }
+
+          .collapsesTextTitles{
+            .title {
+              font-weight: 600;
+              font-family: $primary-font;
+              font-size: 14px;
+              margin-bottom: 10px;
+            }
+          }
+        }
+
+        @media screen and (max-width: 880px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        .formLabel {
+          width: 100%;
+          font-family: $tertiary-font;
+          color: $primary-color-alt;
+          font-size: 14px;
+          font-weight: 800;
+          margin-bottom: 5px;
+          box-sizing: border-box;
+          
+        }
+
+        .textFields {
+          margin-bottom: 20px;
+        }
+
+        .messageSubjects {
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+      }
+
+      .infoContainer {
+        width: 45%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        border-radius: 20px;
+        padding: 30px;
+        box-sizing: border-box;
+        box-shadow: 0 0.5rem 1rem -0.25rem #5c5c5c;
+        background-image: linear-gradient(
+          to top right,
+          $secondary-color,
+          $black
+        );
+
+        @media screen and (max-width: 880px) {
+          width: 100%;
+        }
+
+        .socialMediaGrid {
+          width: 100%;
+
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+
+        .infos {
+          width: 100%;
+
+          .listItems {
+            margin-left: 10px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-left: 0;
+            border-radius: 6px;
+            padding: 7.5px 10px;
+            box-sizing: border-box;
+            border: 0.5px solid transparent;
+            font-family: $tertiary-font;
+            & > div {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: flex-start;
+            }
+
+            .copyButton {
+              cursor: pointer;
+            }
+
+            &:hover {
+              transition: all ease 500ms;
+              border: 0.5px solid #fafafa31;
+              background-image: linear-gradient(
+                to right bottom,
+                $primary-color-alt-transparent,
+                $primary-color-alt-transparent-2,
+                $primary-color-alt-transparent-2,
+                $primary-color-alt-transparent
+              );
+              p {
+                font-size: 14px;
+                color: #fafafa;
+              }
+            }
+
+            @media screen and (max-width: 900px) {
+            }
+
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.horizontalDivider {
+  width: 100%;
+  max-width: $max-width-layout;
+  height: 1px;
+  margin-bottom: 10px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    #e7e7e7,
+    transparent
+  );
+}

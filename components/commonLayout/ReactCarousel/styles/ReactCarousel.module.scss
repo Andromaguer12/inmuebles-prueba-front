@@ -1,0 +1,87 @@
+@import '../../../../constants/styling/theme/variables.scss';
+
+.carouselContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+
+  .leftButton {
+    width: 30px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid #fafafa31;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: linear-gradient(
+      to right bottom,
+      transparent,
+      #7a7a7a7a,
+      #7a7a7a7a,
+      transparent
+    );
+
+    &:active {
+      border: 0.5px solid #fafafa31;
+      background-image: linear-gradient(
+        to right bottom,
+        $primary-color-alt-transparent,
+        $primary-color-alt-transparent-2,
+        $primary-color-alt-transparent-2,
+        $primary-color-alt-transparent
+      );
+    }
+  }
+  .rightButton {
+    width: 30px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid #fafafa31;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: linear-gradient(
+      to right bottom,
+      transparent,
+      #7a7a7a7a,
+      #7a7a7a7a,
+      transparent
+    );
+
+    &:active {
+      border: 0.5px solid #fafafa31;
+      background-image: linear-gradient(
+        to right bottom,
+        $primary-color-alt-transparent,
+        $primary-color-alt-transparent-2,
+        $primary-color-alt-transparent-2,
+        $primary-color-alt-transparent
+      );
+    }
+  }
+
+  .carouselSlide {
+    width: 100%;
+    box-sizing: border-box;
+    // height: 100px;
+    padding: 15px;
+    min-height: 100px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+}

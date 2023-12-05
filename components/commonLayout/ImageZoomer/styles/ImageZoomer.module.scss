@@ -1,0 +1,38 @@
+.zoomedImage16_9{
+  width: 1200px;
+  height: auto;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 1220px) {
+    width: 90%;
+    padding-top: 40px;
+  }
+}
+
+.zoomedImage9_16{
+  width: auto;
+  height: 95%;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 650px) {
+    height: 90%;
+    padding-top: 40px;
+  }
+}
+
+.zoomedImage9_9{
+  width: 600px;
+  height: 600px;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 620px) {
+    width: 90%;
+    height: auto;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+}
