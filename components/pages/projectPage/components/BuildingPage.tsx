@@ -9,20 +9,17 @@ import {
 } from '../../../../services/redux/store';
 import useFetchingContext from '../../../../contexts/backendConection/hook';
 import { getBuildingById, getSimilarBuildings } from '../../../../services/redux/reducers/home/buildings/actions';
-import { Avatar, Skeleton, Typography } from '@mui/material';
+import { Avatar, Button, Skeleton, Typography } from '@mui/material';
 import useTranslation from '../../../../hooks/translation/useTranslation';
-import { Warning, ZoomIn } from '@mui/icons-material';
+import { ShoppingCart, Warning, ZoomIn } from '@mui/icons-material';
 import { format } from 'date-fns';
-import allTechnologies, {
-  technologies
-} from '../../../../constants/app/all-technologies';
 import Image from 'next/image';
-import { AboutMeCardImage } from '../../../../typesDefs/constants/app/about-us/about-us.types';
 import ImageZoomer from '../../../commonLayout/ImageZoomer/ImageZoomer';
 import { convertObjToRequestParams } from '../../../../utils/helpers/convert-obj-to-request-params';
 import ReactCarousel from '../../../commonLayout/ReactCarousel/ReactCarousel';
 import BuildingCard from '../../home/components/BuildingCard';
 import SkeletonBuildingCard from '../../home/components/SkeletonBuildingCard';
+import { BuildingMediaCard } from '../../../../typesDefs/constants/app/buildings/buildings.types';
 
 interface BuildingPageProps {
   buildingId: string;
@@ -40,10 +37,10 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
   const [zoomImage, setZoomImage] = useState<string>('')
 
   const {
-    getSpecificBuilding: {
-      loadingSpecificBuilding,
-      buildingData,
-      errorSpecificBuilding
+    getBuildingById: {
+      loadingBuildingById,
+      // currentBuilding,
+      errorBuildingById
     },
     getSimilarBuildings: {
       loadingSimilar,
@@ -51,6 +48,16 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
       errorBuildingSimilar
     }
   } = useAppSelector(({ buildings }) => buildings);
+
+  const currentBuilding = {
+    _id: '2',
+    address: 'AVENIDA BARCELONA 34',
+    description: 'PISO MODERNO',
+    squareMeters: 100,
+    media: [],
+    name: 'PISO EN AVENIDA BARCELONA',
+    price: 500000
+  }
 
   useEffect(() => {
     if (buildingId) {
@@ -64,18 +71,18 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
   }, [buildingId]);
 
   useEffect(() => {
-    if(buildingData) {
+    if(currentBuilding) {
       const payload = {
-        technologies: buildingData?.technologies && buildingData?.technologies.length ? buildingData?.technologies : null,
+        technologies: currentBuilding?.technologies && currentBuilding?.technologies.length ? currentBuilding?.technologies : null,
         restrictId: buildingId
       }
 
-      dispatch(getSimilarBuildings({
-        context: fContext,
-        filters: convertObjToRequestParams(payload)
-      }))
+      // dispatch(getSimilarBuildings({
+      //   context: fContext,
+      //   filters: convertObjToRequestParams(payload)
+      // }))
     } 
-  }, [buildingData, buildingId])
+  }, [currentBuilding, buildingId])
   
 
   const handleOnAutoScroll = (index: number) => {
@@ -91,7 +98,7 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
       <div className={styles.buildingPageContainer}>
         <div className={styles.maxContainer}>
           <div className={styles.buildingCardImages}>
-            {loadingSpecificBuilding && (
+            {loadingBuildingById && (
               <>
                 <div className={styles.sectionTitle}>
                   <Skeleton
@@ -119,26 +126,22 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                 <Skeleton variant="text" width={'100%'} height={'100%'} />
               </>
             )}
-            <div className={styles.sectionTitle}>
-              <p className={styles.title}>{t('pages.buildingPage.title')}</p>
-
-              <p className={styles.section}>{t('pages.buildingPage.section')}</p>
-            </div>
-            <p className={styles.text}>{t('pages.buildingPage.text')}</p>
-            {!loadingSpecificBuilding && !errorSpecificBuilding && (
+            {!loadingBuildingById && !errorBuildingById && (
               <>
-                <AutoSwipeableViews
+                {currentBuilding?.media &&
+                    currentBuilding?.media.length > 0 && <AutoSwipeableViews
                   style={{ width: '100%', height: '75%' }}
                   containerStyle={{
                     width: '100%',
-                    height: '100%'
+                    height: '100%',
+                    background: '#e7e7e7'
                   }}
                   enableMouseEvents
                   onChangeIndex={handleOnAutoScroll}
                 >
-                  {buildingData?.images &&
-                    buildingData?.images.length > 0 &&
-                    buildingData?.images.map((image: AboutMeCardImage) => (
+                  {currentBuilding?.media &&
+                    currentBuilding?.media.length > 0 &&
+                    currentBuilding?.media.map((image: BuildingMediaCard) => (
                       <div className={styles.carouselSlide} onMouseEnter={() => setHoveringImage(true)} onMouseLeave={() => setHoveringImage(false)} key={image._id}>
                         <img
                           className={styles.image}
@@ -151,12 +154,13 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                         </div>}
                       </div>
                     ))}
-                </AutoSwipeableViews>
-                <div className={styles.dots}>
-                  {buildingData?.images &&
-                    buildingData?.images.length > 0 &&
-                    buildingData?.images.map(
-                      (image: AboutMeCardImage, index: number) => (
+                </AutoSwipeableViews>}
+                {currentBuilding?.media &&
+                    currentBuilding?.media.length > 0 && <div className={styles.dots}>
+                  {currentBuilding?.media &&
+                    currentBuilding?.media.length > 0 &&
+                    currentBuilding?.media.map(
+                      (image: BuildingMediaCard, index: number) => (
                         <div
                           className={
                             currentIndex === index
@@ -167,22 +171,22 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                         />
                       )
                     )}
-                </div>
+                </div>}
               </>
             )}
-            {errorSpecificBuilding && (
+            {errorBuildingById && (
               <div className={styles.error}>
                 <Warning style={{ fontSize: 100, color: '#7a7a7a' }} />
                 <Typography variant="h6" style={{ color: '#7a7a7a' }}>
-                  {typeof errorSpecificBuilding == 'string'
-                    ? errorSpecificBuilding
+                  {typeof errorBuildingById == 'string'
+                    ? errorBuildingById
                     : 'error'}
                 </Typography>
               </div>
             )}
           </div>
           <div className={styles.buildingInfoCard}>
-            {(loadingSpecificBuilding || errorSpecificBuilding) && (
+            {(loadingBuildingById || errorBuildingById) && (
               <>
                 <Skeleton
                   variant="text"
@@ -309,10 +313,10 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                 </div>
               </>
             )}
-            {buildingData && (
+            {currentBuilding && (
               <>
                 <Typography className={styles.title}>
-                  {buildingData?.title}
+                  {currentBuilding?.address}
                 </Typography>
                 <Typography
                   className={styles.subtitles}
@@ -321,108 +325,40 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                   {t('pages.buildingPage.buildingInfo')}
                 </Typography>
                 <Typography className={styles.subtitles2}>
-                  {t('pages.buildingPage.participation')}
-                </Typography>
-                <div className={styles.ownerCard}>
-                  <Avatar
-                    src={fContext.imageHandler(
-                      buildingData.owner?.image,
-                      '/user-images/'
-                    )}
-                    style={{ background: '#8b6e0b', width: 50, height: 50 }}
-                  >
-                    {buildingData.owner?.name[0]}
-                  </Avatar>
-                  <div className={styles.ownerInfo}>
-                    <Typography className={styles.name}>
-                      {buildingData.owner?.name}
-                    </Typography>
-                    <div className={styles.header}>
-                      <div className={styles.card}>
-                        <Typography>Developer</Typography>
-                      </div>
-                      <div className={styles.subheader}>
-                        {buildingData.aproxDate
-                          ? format(
-                              new Date(buildingData.aproxDate),
-                              'dd/MM/yyyy'
-                            )
-                          : 'dd/MM/yyyy'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.horizontalDivider} />
-                <Typography className={styles.subtitles2}>
                   {t('pages.buildingPage.description')}
                 </Typography>
                 <div className={styles.descriptionContainer}>
                   <Typography className={styles.description}>
-                    {t(buildingData?.description ?? 'No description')}
+                    {t(currentBuilding?.description ?? 'No description')}
                   </Typography>
                 </div>
                 <Typography className={styles.subtitles2}>
-                  {t('pages.buildingPage.classification')}
+                  {t('pages.buildingPage.details')}
                 </Typography>
-                <div className={styles.buildingTypes}>
-                  {buildingData.buildingType?.map((type, index) => {
-                    return (
-                      <div
-                        className={styles.card}
-                        key={index}
-                        color="text.secondary"
-                      >
-                        <Typography>
-                          {t('pages.home.cards.buildingTypes.' + type)}
-                        </Typography>
-                      </div>
-                    );
-                  })}
-                </div>
+                <Typography className={styles.squareMeters}>
+                  {currentBuilding?.squareMeters}{'m²'}
+                </Typography>
                 <div className={styles.horizontalDivider} />
                 <Typography className={styles.subtitles2}>
-                  {t('pages.buildingPage.technologies')}
+                  {t('pages.buildingPage.price')}
                 </Typography>
-                <div className={styles.usedTechnologies}>
-                  {buildingData?.technologies &&
-                  buildingData?.technologies.length > 0 ? (
-                    <>
-                      {buildingData.technologies?.map((tech, index) => {
-                        return (
-                          <div
-                            className={styles.card}
-                            key={index}
-                            color="text.secondary"
-                          >
-                            <Image
-                              className={styles.image}
-                              src={
-                                allTechnologies[
-                                  technologies.find((t) => t.name === tech)
-                                    ?.image as keyof typeof allTechnologies
-                                ]
-                              }
-                              width={20}
-                              height={20}
-                              style={{ marginRight: '5px' }}
-                              alt={
-                                technologies.find((t) => t.name === tech)
-                                  ?.name ?? ''
-                              }
-                            />
-                            <Typography>
-                              {technologies.find((t) => t.name === tech)?.name}
-                            </Typography>
-                          </div>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <Typography className={styles.error}>
-                      {t('No technologies')}
-                    </Typography>
-                  )}
-                </div>
+                <Typography className={styles.price}>
+                  {currentBuilding?.price && currentBuilding?.price.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </Typography>
+
+                <Button 
+                  color='primary' 
+                  fullWidth 
+                  variant='contained' 
+                  endIcon={<ShoppingCart />}
+                  disableElevation
+                  sx={{ padding: '10px 20px', marginTop: '30px'}}
+                  >
+                  {t('pages.buildingPage.button.buy')}
+                </Button>
               </>
             )}
           </div>
@@ -433,7 +369,7 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
         image={zoomImage}
         close={() => setZoomImage('')}
       />
-      {(loadingSimilar || errorBuildingSimilar || buildingSimilar.length > 0) && <div className={styles.parentContainer}>
+      {(loadingSimilar || errorBuildingSimilar || buildingSimilar?.length > 0) && <div className={styles.parentContainer}>
         <div className={styles.maxContainer}>
           <div className={styles.mixedBuildingsContainer}>
             <div className={styles.sectionTitle}>
@@ -446,13 +382,13 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
               </p>
             </div>
             <p className={styles.text}>{t('pages.buildingPage.otherBuildingsText')}</p>
-            <ReactCarousel
+            {/* <ReactCarousel
               data={buildingSimilar}
               componentToRender={BuildingCard}
               skeletonComponentToRender={SkeletonBuildingCard}
               loading={loadingSimilar}
               error={errorBuildingSimilar}
-            />
+            /> */}
           </div>
         </div>
       </div>}

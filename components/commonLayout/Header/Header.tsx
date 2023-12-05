@@ -94,9 +94,15 @@ export default function Header() {
 
   return (
     <>
-      <div className={styles.headerContainer}>
+      <div className={[
+          styles.headerContainer, 
+          router.pathname === '/' && styles.withBackground,
+        ].join(' ')}>
         <div className={styles.delimeter}>
-          <div className={styles.logoAndSearch}>
+          <div className={[
+            styles.logoAndSearch,
+            router.pathname.includes('building') && styles.withBackground,
+          ].join(' ')}>
             <Image
               src={Logo}
               className={styles.image}
@@ -110,7 +116,10 @@ export default function Header() {
                   return (
                     <div
                       key={button.id}
-                      className={styles.headerButton}
+                      className={[
+                        styles.headerButton,
+                        router.pathname.includes('building') ? styles.secondaryStyle : '',
+                      ].join(' ')}
                       onClick={() => button.toDiv ? handleRedirectToSection(button?.toDiv) : handleRedirect(button.link)}
                     >
                       {t(button.name)}
@@ -119,7 +128,10 @@ export default function Header() {
                 })}
               </>
             ) : (
-              <Link className={styles.headerButton} href={AllRoutes.HOME}>
+              <Link className={[
+                styles.headerButton,
+                router.pathname.includes('building') ? styles.secondaryStyle : '',
+              ].join(' ')} href={AllRoutes.HOME}>
                 {t('pages.projectPage.backToHome')}
               </Link>
             )}
@@ -127,7 +139,7 @@ export default function Header() {
               onClick={handleListItemClick}
               className={styles.iconButtons}
             >
-              <Language style={{ color: '#fff' }} />
+              <Language style={{ color: !router.pathname.includes('building') ? '#fff' : '#1769a8' }} />
             </IconButton>
             <CustomDropdown
               anchorEl={anchorEl}

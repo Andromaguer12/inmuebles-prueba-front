@@ -1,5 +1,5 @@
 export interface BuildingMediaCard {
-  id: string;
+  _id: string;
   mediaType: 'image' | 'video',
   link: string,
   name: string

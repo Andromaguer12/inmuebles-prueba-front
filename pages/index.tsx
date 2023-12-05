@@ -9,7 +9,6 @@ export default function HomeIndex() {
   return (
     <>
       <Head>
-        <link rel="icon" href="/icoDotDev.ico" />
         <title>{getTitle('HOME')}</title>
       </Head>
       <Home />

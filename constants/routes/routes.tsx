@@ -4,13 +4,13 @@ export const RoutesHeadTitles = {
   ADMIN_LOGIN: 'adminLogin',
   ADMIN_DASHBOARD: 'adminDashboard',
   HOME: 'home',
-  PROJECTPAGE: 'project',
-  ALLPROJECTS: 'all-projects'
+  BUILDINGPAGE: 'building',
+  ALLPROJECTS: 'all-buildings'
 };
 export const AllRoutes = {
   ADMIN_LOGIN: '/admin/login',
-  ADMIN_DASHBOARD: '/admin/dashboard/:user_uid',
-  BUILDING_PAGE: '/building/:id',
+  ADMIN_DASHBOARD: '/admin/dashboard/',
+  BUILDING_PAGE: '/building/',
   HOME: '/',
 };
 

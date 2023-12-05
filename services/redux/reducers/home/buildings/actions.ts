@@ -14,6 +14,11 @@ type initialStateType = {
     currentBuilding: BuildingCard | null;
     errorBuildingById: null | any;
   }
+  getSimilarBuildings: {
+    loadingSimilar: boolean;
+    buildingSimilar: BuildingCard[];
+    errorBuildingSimilar: null | any;
+  }
 };
 
 const hardcoded: BuildingCard[] = [
@@ -85,6 +90,11 @@ const initialState: initialStateType = {
     loadingBuildingById: false,
     currentBuilding: null,
     errorBuildingById: null,
+  },
+  getSimilarBuildings: {
+    loadingBuildings: false,
+    dataBuildings: hardcoded ?? [],
+    errorBuildings: null,
   }
 };
 

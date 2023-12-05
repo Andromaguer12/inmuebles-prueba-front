@@ -1,5 +1,9 @@
 @import '../../../constants/styling/theme/variables.scss';
 
+.withBackground {
+  background-image: linear-gradient(to bottom, $primary-color-alt, transparent);
+}
+
 .headerContainer {
   width: 100%;
   display: flex;
@@ -9,7 +13,6 @@
   z-index: 100;
   position: absolute;
   top: 0;
-  background-image: linear-gradient(to bottom, $primary-color-alt, transparent);
 
   .delimeter {
     max-width: $max-width-layout;
@@ -33,6 +36,11 @@
       }
     }
 
+    .withBackground {
+      background: $primary-color;
+      border-radius: 10px;
+    }
+
     .buttons {
       display: flex;
       flex-direction: row;
@@ -41,6 +49,7 @@
       @media screen and (max-width: 950px) {
         display: none;
       }
+
 
       .headerButton {
         font-family: $primary-font;
@@ -67,10 +76,19 @@
             );
           p {
             font-size: 14px;
-            color: #fafafa;
+            color: #000000 !important;
           }
         }
       }
+
+      .secondaryStyle{
+        color: $primary-color-alt;
+
+        &:hover {
+          color: #000000 !important;
+        }
+      }
+
       .iconButtons {
         margin-right: 10px !important;
         border: 0.5px solid transparent;
@@ -89,6 +107,18 @@
           p {
             font-size: 14px;
             color: #fafafa;
+          }
+        }
+      }
+
+      .secondaryIconStyle{
+        p {
+          color: $primary-color-alt;
+        }
+
+        &:hover {
+          p {
+            color: #000000 !important;
           }
         }
       }
