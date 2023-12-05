@@ -106,7 +106,7 @@ export default function Header() {
             <Image
               src={Logo}
               className={styles.image}
-              alt={'dot-dev-logo'}
+              alt={'inmuebles-sol-logo'}
             />
           </div>
           <div className={styles.buttons}>

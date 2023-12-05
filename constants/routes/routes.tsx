@@ -8,7 +8,7 @@ export const RoutesHeadTitles = {
   ALLPROJECTS: 'all-buildings'
 };
 export const AllRoutes = {
-  ADMIN_LOGIN: '/admin/login',
+  ADMIN_LOGIN: '/admin-login',
   ADMIN_DASHBOARD: '/admin/dashboard/',
   BUILDING_PAGE: '/building/',
   HOME: '/',

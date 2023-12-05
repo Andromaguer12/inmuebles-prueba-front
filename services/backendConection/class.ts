@@ -47,7 +47,7 @@ class BackendFetching {
    * home endpoints
    */
 
-  async getAllProjects(filters?: string) {
+  async getAllBuildings(filters?: string) {
     const url = '/projects' + (filters ?? '');
     return await this.httpCallable(url)({
       mode: 'cors',
@@ -55,64 +55,24 @@ class BackendFetching {
     });
   }
 
-  async getBestProjects(filters?: string) {
-    const url = '/projects/best' + (filters ?? '');
-    return await this.httpCallable(url)({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async getSimilarProjects(filters?: string) {
-    const url = '/projects/similar' + (filters ?? '');
-    return await this.httpCallable(url)({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async getAllProjectsPhotos() {
-    return await this.httpCallable('/projects/photos')({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async getProjectById(projectId: string) {
+  async getBuildingById(projectId: string) {
     return await this.httpCallable('/projects/' + projectId)({
       mode: 'cors',
       method: 'GET'
     });
   }
 
-  async getAllTestimonials() {
-    return await this.httpCallable('/testimonials')({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async getAllCompaniesExperiences() {
-    return await this.httpCallable('/companies-experiences')({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async getAllProfessionalExperiences() {
-    return await this.httpCallable('/professional-experiences')({
-      mode: 'cors',
-      method: 'GET'
-    });
-  }
-
-  async sendContactFormEmail(payload: ContactFormRequest) {
-    return await this.httpCallable('/contact-form/send')({
+  async authUser(email: string, password: string){
+    const url = '/users/login';
+    return await this.httpCallable(url)({
       mode: 'cors',
       method: 'POST',
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        email,
+        password
+      })
     });
-  }
+  }  
 }
 
 export default BackendFetching;
