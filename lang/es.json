@@ -1,3 +1,24 @@
 {
-  
+  "pages.header.home": "Inicio",
+  "pages.home.mainTitle": "Todos los edificios de calidad real en un solo lugar",
+  "pages.home.mainSubtitle": "Con los mejores estándares del mercado",
+  "pages.home.item1": "Asesoría Personalizada",
+  "pages.home.itemText1": "Te ayudamos a encontrar la propiedad que mejor se adapte a ti.",
+  "pages.home.item2": "Financiamiento Flexible",
+  "pages.projectPage.backToHome": "Volver al Inicio",
+  "pages.home.itemText2": "Ofrecemos facilidades de pago para que puedas comprar tu propiedad.",
+  "pages.home.item3": "Garantía de Calidad",
+  "pages.home.itemText3": "Garantizamos que nuestras propiedades cumplen con los más altos estándares.",
+  "pages.home.buildingsTitle": "Edificios Disponibles",
+  "pages.home.buildingsTitle.section": "- EDIFICIOS -",
+  "pages.home.viewMore": "Ver Más",
+  "pages.commonLayout.footer.navigation": "Navegación",
+  "pages.commonLayout.footer.navigationText": "Aquí hay algunos enlaces de la aplicación",
+  "footer.button.top": "Ir al inicio",
+  "pages.buildingPage.buildingInfo": "Información del Edificio",
+  "pages.buildingPage.description": "Descripción",
+  "pages.buildingPage.details": "Detalles",
+  "pages.buildingPage.price": "Precio",
+  "pages.buildingPage.button.buy": "Comprar",
+  "footer.copyright": "ANDRES CARRASQUERO | PRUEBA TÉCNICA REACT 2023"
 }
