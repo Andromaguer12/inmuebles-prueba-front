@@ -23,7 +23,7 @@ import { useStyles } from '../styles/AdminPanelStyles';
 import Logo from '../../../../assets/pages/home/logoNoBackground.png';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '../../../../services/redux/store';
-import { getAllBuildings } from '../../../../services/redux/reducers/home/buildings/actions';
+import { deleteBuildingById, getAllBuildings } from '../../../../services/redux/reducers/home/buildings/actions';
 import { convertObjToRequestParams } from '../../../../utils/helpers/convert-obj-to-request-params';
 import useFetchingContext from '../../../../contexts/backendConection/hook';
 import { BuildingCard } from '../../../../typesDefs/constants/app/buildings/buildings.types';
@@ -264,10 +264,13 @@ export default function AdminPanel() {
     updateBuildingById: {
       successUpdateBuilding,
     },
+    deleteBuildingById: {
+      successDeleteBuilding,
+    },
   } = useAppSelector(({ buildings }) => buildings)
 
   useEffect(() => {
-    if(successCreateBuilding || successUpdateBuilding) {
+    if(successCreateBuilding || successDeleteBuilding || successUpdateBuilding) {
       dispatch(getAllBuildings({
         context: fContext,
         filters: convertObjToRequestParams({
@@ -276,7 +279,7 @@ export default function AdminPanel() {
         })
       }))
     }
-  }, [successCreateBuilding, successUpdateBuilding, page, rowsPerPage])
+  }, [successCreateBuilding, successDeleteBuilding, successUpdateBuilding, page, rowsPerPage])
 
   useEffect(() => {
     dispatch(getAllBuildings({
@@ -294,6 +297,13 @@ export default function AdminPanel() {
       setOpen(true);
     }
 
+    const handleDeleteHere = () =>{
+      dispatch(deleteBuildingById({
+        context: fContext,
+        projectId: item?._id
+      }))
+    }
+
     return createData(
       item.address,
       item.media && item.media?.length ? item.media[0].link : 'No media', 
@@ -307,7 +317,7 @@ export default function AdminPanel() {
         <IconButton onClick={handleThisEdit} color='success'>
           <Edit />
         </IconButton>
-        <IconButton color='error'>
+        <IconButton onClick={handleDeleteHere} color='error'>
           <Delete />
         </IconButton>
       </>, 

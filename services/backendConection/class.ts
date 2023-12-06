@@ -40,13 +40,12 @@ class BackendFetching {
     return async (configs: any) =>
       await fetch(this.backendApiUrl + url, {
         ...configs,
-        headers: !configs.noContentType
-          ? {
-              'Content-Type': 'application/json',
-              ...configs?.headers,
+        headers: 
+          {
+              ...configs?.headers ?? {},
               'Authorization': 'Bearer ' + accessToken,
+              ...(!configs.noContentType ? {'Content-Type': 'application/json' } : {})
             }
-          : { ...configs?.headers }
       });
   }
 
@@ -83,9 +82,8 @@ class BackendFetching {
     return await this.httpAuthenticatedCallable('/buildings')({
       mode: 'cors',
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
+      noContentType: true,
+      contentType: 'multipart/form-data',
       body
     });
   }

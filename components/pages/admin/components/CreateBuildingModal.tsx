@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
@@ -92,6 +93,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
         body: object
       }))
     } else {
+
       dispatch(createBuilding({
         context: fContext,
         body: form
