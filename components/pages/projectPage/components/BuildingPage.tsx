@@ -8,17 +8,11 @@ import {
   useAppSelector
 } from '../../../../services/redux/store';
 import useFetchingContext from '../../../../contexts/backendConection/hook';
-import { getBuildingById, getSimilarBuildings } from '../../../../services/redux/reducers/home/buildings/actions';
-import { Avatar, Button, Skeleton, Typography } from '@mui/material';
+import { getBuildingById } from '../../../../services/redux/reducers/home/buildings/actions';
+import { Button, Skeleton, Typography } from '@mui/material';
 import useTranslation from '../../../../hooks/translation/useTranslation';
 import { ShoppingCart, Warning, ZoomIn } from '@mui/icons-material';
-import { format } from 'date-fns';
-import Image from 'next/image';
 import ImageZoomer from '../../../commonLayout/ImageZoomer/ImageZoomer';
-import { convertObjToRequestParams } from '../../../../utils/helpers/convert-obj-to-request-params';
-import ReactCarousel from '../../../commonLayout/ReactCarousel/ReactCarousel';
-import BuildingCard from '../../home/components/BuildingCard';
-import SkeletonBuildingCard from '../../home/components/SkeletonBuildingCard';
 import { BuildingMediaCard } from '../../../../typesDefs/constants/app/buildings/buildings.types';
 
 interface BuildingPageProps {
@@ -39,25 +33,10 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
   const {
     getBuildingById: {
       loadingBuildingById,
-      // currentBuilding,
+      currentBuilding,
       errorBuildingById
-    },
-    getSimilarBuildings: {
-      loadingSimilar,
-      buildingSimilar,
-      errorBuildingSimilar
     }
   } = useAppSelector(({ buildings }) => buildings);
-
-  const currentBuilding = {
-    _id: '2',
-    address: 'AVENIDA BARCELONA 34',
-    description: 'PISO MODERNO',
-    squareMeters: 100,
-    media: [],
-    name: 'PISO EN AVENIDA BARCELONA',
-    price: 500000
-  }
 
   useEffect(() => {
     if (buildingId) {
@@ -69,20 +48,6 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
       );
     }
   }, [buildingId]);
-
-  useEffect(() => {
-    if(currentBuilding) {
-      const payload = {
-        technologies: currentBuilding?.technologies && currentBuilding?.technologies.length ? currentBuilding?.technologies : null,
-        restrictId: buildingId
-      }
-
-      // dispatch(getSimilarBuildings({
-      //   context: fContext,
-      //   filters: convertObjToRequestParams(payload)
-      // }))
-    } 
-  }, [currentBuilding, buildingId])
   
 
   const handleOnAutoScroll = (index: number) => {
@@ -141,19 +106,34 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
                 >
                   {currentBuilding?.media &&
                     currentBuilding?.media.length > 0 &&
-                    currentBuilding?.media.map((image: BuildingMediaCard) => (
-                      <div className={styles.carouselSlide} onMouseEnter={() => setHoveringImage(true)} onMouseLeave={() => setHoveringImage(false)} key={image._id}>
-                        <img
-                          className={styles.image}
-                          src={fContext.imageHandler(image.link, '/buildings/')}
-                          style={{ marginRight: '5px' }}
-                          alt={image.name}
-                        />
-                        {hoveringImage && <div className={styles.zoomShadow} onClick={() => shadowClick(fContext.imageHandler(image.link, '/buildings/'))}>
-                          <ZoomIn sx={{ color: "#ffffff", fontSize: 50 }} />
-                        </div>}
-                      </div>
-                    ))}
+                    currentBuilding?.media.map((image: BuildingMediaCard, index) => {
+                      const media = image.mediaType === 'video' ? fContext.videoHandler(image.link, '/buildings/') : fContext.imageHandler(image.link, '/buildings/')
+                      
+                      return (
+                        <div className={styles.carouselSlide} onMouseEnter={() => setHoveringImage(true)} onMouseLeave={() => setHoveringImage(false)} key={image._id}>
+                          {image.mediaType === 'video' ? 
+                            (
+                              <video 
+                                className={styles.image}
+                                style={{ marginRight: '5px' }}
+                                controls
+                                autoPlay={currentIndex === index}
+                                src={media} 
+                              />
+                            ) : (
+                              <img
+                                className={styles.image}
+                                src={media}
+                                style={{ marginRight: '5px' }}
+                                alt={image.name}
+                              />
+                            )}
+                          {image.mediaType === 'image' && hoveringImage && <div className={styles.zoomShadow} onClick={() => shadowClick(fContext.imageHandler(image.link, '/buildings/'))}>
+                            <ZoomIn sx={{ color: "#ffffff", fontSize: 50 }} />
+                          </div>}
+                        </div>
+                      )
+                    })}
                 </AutoSwipeableViews>}
                 {currentBuilding?.media &&
                     currentBuilding?.media.length > 0 && <div className={styles.dots}>
@@ -369,29 +349,6 @@ const BuildingPage = ({ buildingId }: BuildingPageProps) => {
         image={zoomImage}
         close={() => setZoomImage('')}
       />
-      {(loadingSimilar || errorBuildingSimilar || buildingSimilar?.length > 0) && <div className={styles.parentContainer}>
-        <div className={styles.maxContainer}>
-          <div className={styles.mixedBuildingsContainer}>
-            <div className={styles.sectionTitle}>
-              <p className={styles.title}>
-                {t('pages.buildingPage.otherBuildingsTitle')}
-              </p>
-
-              <p className={styles.section}>
-                {t('pages.home.aboutUs.buildings.section')}
-              </p>
-            </div>
-            <p className={styles.text}>{t('pages.buildingPage.otherBuildingsText')}</p>
-            {/* <ReactCarousel
-              data={buildingSimilar}
-              componentToRender={BuildingCard}
-              skeletonComponentToRender={SkeletonBuildingCard}
-              loading={loadingSimilar}
-              error={errorBuildingSimilar}
-            /> */}
-          </div>
-        </div>
-      </div>}
     </>
   );
 };

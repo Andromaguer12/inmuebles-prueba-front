@@ -43,16 +43,25 @@ export default function BuildingCard({ item }: BuildingCardProps) {
     }
   };
 
+  const link = item.media && item.media?.length > 0 ? item?.media[0].link : ''
+
+  const media = item.media && item.media?.length > 0 && item?.media[0].mediaType === "image" ?  fContext.imageHandler(
+    link,
+    '/buildings/'
+  ) : fContext.videoHandler(
+    link,
+    '/buildings/'
+  )
+
   return (
     <Card className={classes.cardContainer}>
       <CardMedia
-        component="img"
+        component={item.media && item.media?.length > 0 && item?.media[0].mediaType === "video" ? "video" : "img"}
+        width="324"
         height="194"
         style={{ background: '#e7e7e7' }}
-        src={fContext.imageHandler(
-          item.media && item.media?.length > 0 ? item?.media[0].link : '',
-          '/buildings/'
-        )}
+        src={media}
+        controls
         alt="building-image"
         className={classes.image}
       />
@@ -71,7 +80,7 @@ export default function BuildingCard({ item }: BuildingCardProps) {
           })}
         </Typography>
         <Typography className={classes.squareMeters} color="text.secondary">
-          <b>{t('pages.home.squareMeters')}</b>{': '}{item.squareMeters}{'m²'}
+          {item.squareMeters}{'m²'}
         </Typography>
       </CardContent>
       <CardActions sx={{ marginTop: 'auto' }} disableSpacing>

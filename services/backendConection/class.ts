@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { BuildingCard } from '../../typesDefs/constants/app/buildings/buildings.types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -34,18 +34,21 @@ class BackendFetching {
       });
   }
 
-  httpAuthenticatedCallable(url: string): (configs: RequestInit) => Promise<Response> {
-    const accessToken = Cookies.get('accessToken')
-    
+  httpAuthenticatedCallable(
+    url: string
+  ): (configs: RequestInit | any) => Promise<Response> {
+    const accessToken = Cookies.get('accessToken');
+
     return async (configs: any) =>
       await fetch(this.backendApiUrl + url, {
         ...configs,
-        headers: 
-          {
-              ...configs?.headers ?? {},
-              'Authorization': 'Bearer ' + accessToken,
-              ...(!configs.noContentType ? {'Content-Type': 'application/json' } : {})
-            }
+        headers: {
+          ...(configs?.headers ?? {}),
+          Authorization: 'Bearer ' + accessToken,
+          ...(!configs.noContentType
+            ? { 'Content-Type': 'application/json' }
+            : {})
+        }
       });
   }
 
@@ -53,6 +56,10 @@ class BackendFetching {
 
   imageHandler(filename: string, container: string): string {
     return this.baseApiUrl + '/public/assets/images' + container + filename;
+  }
+
+  videoHandler(filename: string, container: string): string {
+    return this.baseApiUrl + '/public/assets/videos' + container + filename;
   }
 
   pdfHandler(filename: string, container: string): string {
@@ -103,7 +110,7 @@ class BackendFetching {
     });
   }
 
-  async authUser(email: string, password: string){
+  async authUser(email: string, password: string) {
     const url = '/users/login';
     return await this.httpCallable(url)({
       mode: 'cors',
@@ -113,7 +120,7 @@ class BackendFetching {
         password
       })
     });
-  }  
+  }
 }
 
 export default BackendFetching;

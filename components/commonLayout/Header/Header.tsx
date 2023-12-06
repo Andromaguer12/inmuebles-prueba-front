@@ -30,12 +30,6 @@ export default function Header() {
   const openPopper = Boolean(anchorEl);
   const classes = useStyles();
 
-  const goToLink = (link: string) => {
-    if (typeof window !== 'undefined') {
-      window.open(link);
-    }
-  };
-
   const handleChangeLanguaje = (lang: string) => {
     router.push(router.pathname, router.asPath, { locale: lang });
   };

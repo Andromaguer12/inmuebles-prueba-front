@@ -1,3 +1,24 @@
 {
-  
+  "pages.header.home": "Home",
+  "pages.home.mainTitle": "All of the real quality buildings in one place",
+  "pages.home.mainSubtitle": "With the best standars of the market",
+  "pages.home.item1": "Personalized Advice",
+  "pages.home.itemText1": "We help you find the property that best suits you.",
+  "pages.home.item2": "Flexible Financing",
+  "pages.projectPage.backToHome": "Back to Home",
+  "pages.home.itemText2": "We offer payment facilities so you can buy your property.",
+  "pages.home.item3": "Quality Guarantee",
+  "pages.home.itemText3": "We guarantee that our properties meet the highest standards.",
+  "pages.home.buildingsTitle": "Available Buildings",
+  "pages.home.buildingsTitle.section": "- BUILDINGS -",
+  "pages.home.viewMore": "View More",
+  "pages.commonLayout.footer.navigation": "Navigation",
+  "pages.commonLayout.footer.navigationText": "Here are some links of the app",
+  "footer.button.top": "Go to top",
+  "pages.buildingPage.buildingInfo": "Building Info",
+  "pages.buildingPage.description": "Description",
+  "pages.buildingPage.details": "Details",
+  "pages.buildingPage.price": "Price",
+  "pages.buildingPage.button.buy": "Buy",
+  "footer.copyright": "ANDRES CARRASQUERO | REACT TECHNICAL TEST 2023"
 }

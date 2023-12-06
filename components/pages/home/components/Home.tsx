@@ -4,7 +4,6 @@ import background from '../../../../assets/pages/home/background.jpg'
 import Image from 'next/image'
 import { MenuItem, Pagination, Select, Typography } from '@mui/material'
 import useTranslation from '../../../../hooks/translation/useTranslation'
-import ReactCarousel from '../../../commonLayout/ReactCarousel/ReactCarousel'
 import BuildingCard from './BuildingCard'
 import SkeletonBuildingCard from './SkeletonBuildingCard'
 import { useAppDispatch, useAppSelector } from '../../../../services/redux/store'
@@ -83,7 +82,7 @@ const Home = () => {
             )}
             {!loadingBuildings && <div className={styles.buildings}>
               {!loadingBuildings && dataBuildings && dataBuildings.map((item) => {
-                return <BuildingCard key={item.id} item={item} />
+                return <BuildingCard key={item._id} item={item} />
               })}
               <div className={styles.paginationContainer}>
                 <Select
@@ -91,7 +90,7 @@ const Home = () => {
                   size='small'
                   sx={{ marginRight: '20px' }}
                   onChange={(e) => {
-                    setRowsPerPage(e.target.value)
+                    setRowsPerPage(e.target.value as number)
                   }}
                 >
                   <MenuItem value={8}>8</MenuItem>

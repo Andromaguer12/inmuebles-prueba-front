@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     backgroundImage:
-      'linear-gradient(to right bottom, transparent, #7a7a7a7a, #7a7a7a7a, transparent)',
+      'linear-gradient(to right bottom, transparent, #0d2c437a, #0d2c437a, transparent)',
     border: '0.5px solid #ffffff7a',
     backdropFilter: 'blur(2px)',
     minWidth: '150px',

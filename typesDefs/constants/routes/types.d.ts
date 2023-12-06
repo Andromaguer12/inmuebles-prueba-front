@@ -16,6 +16,7 @@ export type RoutesClassification = {
   };
   PUBLIC: {
     HOME: RouteDeclaration;
+    BUILDING_PAGE: RouteDeclaration;
     ADMIN: RouteDeclaration;
   };
 };

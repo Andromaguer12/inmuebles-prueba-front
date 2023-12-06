@@ -10,7 +10,6 @@ import { BuildingCard } from '../../../../typesDefs/constants/app/buildings/buil
 import { styled } from '@mui/styles';
 import { CloudUpload } from '@mui/icons-material';
 import styles from '../styles/CreateBuildingModal.module.scss'
-import useTranslation from '../../../../hooks/translation/useTranslation';
 import { TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../../services/redux/store';
 import { createBuilding, updateBuildingById } from '../../../../services/redux/reducers/home/buildings/actions';
@@ -42,10 +41,10 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 interface CreateBuildingModalProps {
-  item?: Partial<BuildingCard>,
+  item?: Partial<BuildingCard> | any,
   open: boolean, 
-  setOpen: React.SetStateAction<boolean>
-  setSelectedItem: React.SetStateAction<null>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>> | any,
+  setSelectedItem: React.Dispatch<React.SetStateAction<null>> | any
 }
 
 export default function CreateBuildingModal({ open, setOpen, setSelectedItem, item }: CreateBuildingModalProps) {
@@ -53,7 +52,6 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
     setOpen(false)
     setSelectedItem(null)
   };
-  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const fContext = useFetchingContext()
 
@@ -125,7 +123,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
               <div className={styles.textInputs}>
                 <div className={styles.column}>
                   <Typography className={styles.formLabel}>
-                    {t('pages.admin.create.address')}
+                    Address
                   </Typography>
                   <TextField
                     name="address"
@@ -139,7 +137,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
                 </div>
                 <div className={styles.column}>
                   <Typography className={styles.formLabel}>
-                    {t('pages.admin.create.name')}
+                    Name
                   </Typography>
                   <TextField
                     name="name"
@@ -155,7 +153,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
               <div className={styles.textInputs}>
                 <div className={styles.column}>
                   <Typography className={styles.formLabel}>
-                    {t('pages.admin.create.squareMeters')}
+                    Square Meters
                   </Typography>
                   <TextField
                     name="squareMeters"
@@ -170,7 +168,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
                 </div>
                 <div className={styles.column}>
                   <Typography className={styles.formLabel}>
-                    {t('pages.admin.create.price')}
+                    Price
                   </Typography>
                   <TextField
                     name="price"
@@ -185,7 +183,7 @@ export default function CreateBuildingModal({ open, setOpen, setSelectedItem, it
                 </div>
               </div>
               <Typography className={styles.formLabel}>
-                {t('pages.admin.create.description')}
+                Description
               </Typography>
               <TextField
                 name="description"
