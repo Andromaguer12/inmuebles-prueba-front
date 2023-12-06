@@ -351,7 +351,7 @@ export default function AdminPanel() {
           {typeof errorBuildings === 'string' ? errorBuildings : JSON.stringify(errorBuildings)}
         </Typography>
       </Box>}
-      {!loadingBuildings && <Paper sx={{ width: '100%', mb: 2 }}>
+      {!loadingBuildings && rows.length > 0 && <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar openModal={() => setOpen(!open)} numSelected={selected.length} />
         <TableContainer>
           <Table
