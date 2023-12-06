@@ -1,18 +1,38 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styles from '../styles/Home.module.scss'
 import background from '../../../../assets/pages/home/background.jpg'
 import Image from 'next/image'
-import { Pagination, Typography } from '@mui/material'
+import { MenuItem, Pagination, Select, Typography } from '@mui/material'
 import useTranslation from '../../../../hooks/translation/useTranslation'
 import ReactCarousel from '../../../commonLayout/ReactCarousel/ReactCarousel'
 import BuildingCard from './BuildingCard'
 import SkeletonBuildingCard from './SkeletonBuildingCard'
-import { useAppSelector } from '../../../../services/redux/store'
+import { useAppDispatch, useAppSelector } from '../../../../services/redux/store'
 import { BuildingBarSections } from '../../../../constants/components/pages/SkillsBar/skillsBar';
 import FeatureCard from './FeatureCard'
+import { Warning } from '@mui/icons-material'
+import { convertObjToRequestParams } from '../../../../utils/helpers/convert-obj-to-request-params'
+import { getAllBuildings } from '../../../../services/redux/reducers/home/buildings/actions'
+import useFetchingContext from '../../../../contexts/backendConection/hook'
 
 const Home = () => {
   const  { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
+  const [page, setPage] = useState<number>(0)
+  const [rowsPerPage, setRowsPerPage] = useState<number>(8)
+  const fContext = useFetchingContext()
+
+  useEffect(() => {
+    console.log(rowsPerPage)
+    dispatch(getAllBuildings({
+      context: fContext,
+      filters: convertObjToRequestParams({
+        page,
+        limit: rowsPerPage
+      })
+    }))
+  }, [page, rowsPerPage])
 
   const { getBuildings: { loadingBuildings, dataBuildings, pageInfoBuildings, errorBuildings } } = useAppSelector(({ buildings }) => buildings)
 
@@ -54,21 +74,41 @@ const Home = () => {
                 {t('pages.home.buildingsTitle.section')}
               </p>
             </div>
-            <div className={styles.buildings}>
+            {loadingBuildings && (
+              <div className={styles.buildings}>
+                {Array(6).fill(1).map((_i, index) => (
+                  <SkeletonBuildingCard key={index} />
+                ))}
+              </div>
+            )}
+            {!loadingBuildings && <div className={styles.buildings}>
               {!loadingBuildings && dataBuildings && dataBuildings.map((item) => {
                 return <BuildingCard key={item.id} item={item} />
               })}
               <div className={styles.paginationContainer}>
-                <Pagination onChange={(e, newValue) => console.log(newValue)} count={10} variant="outlined" color="primary" />
+                <Select
+                  value={rowsPerPage}
+                  size='small'
+                  sx={{ marginRight: '20px' }}
+                  onChange={(e) => {
+                    setRowsPerPage(e.target.value)
+                  }}
+                >
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={16}>16</MenuItem>
+                  <MenuItem value={32}>32</MenuItem>
+                </Select>
+                <Pagination onChange={(_e, newValue) => setPage(newValue)} count={pageInfoBuildings?.totalPages} variant="outlined" color="primary" />
               </div>
-            </div>
-            {/* <ReactCarousel
-              data={}
-              componentToRender={BuildingCard}
-              skeletonComponentToRender={SkeletonBuildingCard}
-              loading={loadingBuildings}
-              error={errorBuildings}
-            /> */}
+            </div>}
+            {errorBuildings && (
+              <div className={styles.error}>
+                <Warning style={{ fontSize: 100, color: '#7a7a7a' }} />
+                <Typography variant="h6" style={{ color: '#7a7a7a' }}>
+                  {typeof errorBuildings == 'string' ? errorBuildings : 'error'}
+                </Typography>
+              </div>
+            )}
           </div>
         </div>
       </div>

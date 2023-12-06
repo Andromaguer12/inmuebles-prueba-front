@@ -12,5 +12,6 @@ export interface BuildingCard {
   description: string;
   price: number;
   squareMeters: number;
-  media: BuildingMediaCard[]
+  media: BuildingMediaCard[];
+  createdAt?: number;
 }

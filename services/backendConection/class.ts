@@ -1,4 +1,5 @@
-import { ContactFormRequest } from '../../typesDefs/constants/app/contactForm/types';
+import Cookies from 'js-cookie'
+import { BuildingCard } from '../../typesDefs/constants/app/buildings/buildings.types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 class BackendFetching {
@@ -33,6 +34,22 @@ class BackendFetching {
       });
   }
 
+  httpAuthenticatedCallable(url: string): (configs: RequestInit) => Promise<Response> {
+    const accessToken = Cookies.get('accessToken')
+    
+    return async (configs: any) =>
+      await fetch(this.backendApiUrl + url, {
+        ...configs,
+        headers: !configs.noContentType
+          ? {
+              'Content-Type': 'application/json',
+              ...configs?.headers,
+              'Authorization': 'Bearer ' + accessToken,
+            }
+          : { ...configs?.headers }
+      });
+  }
+
   //files handlers
 
   imageHandler(filename: string, container: string): string {
@@ -48,7 +65,7 @@ class BackendFetching {
    */
 
   async getAllBuildings(filters?: string) {
-    const url = '/projects' + (filters ?? '');
+    const url = '/buildings' + (filters ?? '');
     return await this.httpCallable(url)({
       mode: 'cors',
       method: 'GET'
@@ -56,9 +73,35 @@ class BackendFetching {
   }
 
   async getBuildingById(projectId: string) {
-    return await this.httpCallable('/projects/' + projectId)({
+    return await this.httpCallable('/buildings/' + projectId)({
       mode: 'cors',
       method: 'GET'
+    });
+  }
+
+  async createBuilding(body: any) {
+    return await this.httpAuthenticatedCallable('/buildings')({
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      body
+    });
+  }
+
+  async updateBuildingById(projectId: string, body: Partial<BuildingCard>) {
+    return await this.httpAuthenticatedCallable('/buildings/' + projectId)({
+      mode: 'cors',
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+  }
+
+  async deleteBuildingById(projectId: string) {
+    return await this.httpAuthenticatedCallable('/buildings/' + projectId)({
+      mode: 'cors',
+      method: 'DELETE'
     });
   }
 

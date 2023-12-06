@@ -1,8 +1,15 @@
+import Head from 'next/head'
 import React from 'react'
+import AdminPanel from '../../../components/pages/admin/components/AdminPanel'
 
 const AdminDashboard = () => {
   return (
-    <div>AdminDashboard</div>
+    <>
+      <Head>
+        <title>{'Admin Dashboard'}</title>
+      </Head>
+      <AdminPanel />
+    </>
   )
 }
 

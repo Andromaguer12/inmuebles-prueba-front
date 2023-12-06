@@ -14,75 +14,28 @@ type initialStateType = {
     currentBuilding: BuildingCard | null;
     errorBuildingById: null | any;
   }
-  getSimilarBuildings: {
-    loadingSimilar: boolean;
-    buildingSimilar: BuildingCard[];
-    errorBuildingSimilar: null | any;
+  createBuilding: {
+    loadingCreateBuilding: boolean,
+    successCreateBuilding: boolean,
+    errorCreateBuilding: null | any,
+  },
+  updateBuildingById: {
+    loadingUpdateBuilding: boolean,
+    successUpdateBuilding: boolean,
+    errorUpdateBuilding: null | any,
+  },
+  deleteBuildingById: {
+    loadingDeleteBuilding: boolean,
+    successDeleteBuilding: boolean,
+    errorDeleteBuilding: null | any,
   }
 };
-
-const hardcoded: BuildingCard[] = [
-  {
-    _id: '1',
-    address: 'CALLE MADRID 12',
-    description: 'CASA BONITA',
-    squareMeters: 255,
-    media: [],
-    name: 'CASA EN CALLE MADRID',
-    price: 1200000
-  },
-  {
-    _id: '2',
-    address: 'AVENIDA BARCELONA 34',
-    description: 'PISO MODERNO',
-    squareMeters: 100,
-    media: [],
-    name: 'PISO EN AVENIDA BARCELONA',
-    price: 500000
-  },
-  {
-    _id: '3',
-    address: 'PLAZA SEVILLA 56',
-    description: 'CHALET CON JARDÍN',
-    squareMeters: 300,
-    media: [],
-    name: 'CHALET EN PLAZA SEVILLA',
-    price: 1500000
-  },
-  {
-    _id: '4',
-    address: 'CALLE GRANADA 78',
-    description: 'ÁTICO CON TERRAZA',
-    squareMeters: 80,
-    media: [],
-    name: 'ÁTICO EN CALLE GRANADA',
-    price: 400000
-  },
-  {
-    _id: '5',
-    address: 'CALLE VALENCIA 90',
-    description: 'DÚPLEX CON GARAJE',
-    squareMeters: 150,
-    media: [],
-    name: 'DÚPLEX EN CALLE VALENCIA',
-    price: 800000
-  },
-  {
-    _id: '6',
-    address: 'CALLE BILBAO 12',
-    description: 'LOFT CON VISTAS',
-    squareMeters: 60,
-    media: [],
-    name: 'LOFT EN CALLE BILBAO',
-    price: 300000
-  }
-]
 
 
 const initialState: initialStateType = {
   getBuildings: {
     loadingBuildings: false,
-    dataBuildings: hardcoded ?? [],
+    dataBuildings: [],
     pageInfoBuildings: null,
     errorBuildings: null,
   },
@@ -91,10 +44,20 @@ const initialState: initialStateType = {
     currentBuilding: null,
     errorBuildingById: null,
   },
-  getSimilarBuildings: {
-    loadingBuildings: false,
-    dataBuildings: hardcoded ?? [],
-    errorBuildings: null,
+  createBuilding: {
+    loadingCreateBuilding: false,
+    successCreateBuilding: false,
+    errorCreateBuilding: null,
+  },
+  updateBuildingById: {
+    loadingUpdateBuilding: false,
+    successUpdateBuilding: false,
+    errorUpdateBuilding: null,
+  },
+  deleteBuildingById: {
+    loadingDeleteBuilding: false,
+    successDeleteBuilding: false,
+    errorDeleteBuilding: null,
   }
 };
 
@@ -115,12 +78,47 @@ export const getAllBuildings = createAsyncThunk(
 );
 
 export const getBuildingById = createAsyncThunk(
-  'buildingPage/getBuildingById',
+  'home/getBuildingById',
   async (params: { context: any; buildingId: string }, { rejectWithValue }) => {
     const query = await params.context.getBuildingById(params.buildingId);
     const response = await query.json();
     if (query.status > 202) {
       return rejectWithValue(response?.message);
+    }
+    return response;
+  }
+);
+
+export const createBuilding = createAsyncThunk(
+  'buildings/createBuilding',
+  async (params: any, { rejectWithValue }) => {
+    const response = await params.context.createBuilding(params.body);
+    const data = await response.json();
+    if (response.status > 202) {
+      return rejectWithValue(data?.message);
+    }
+    return data;
+  }
+);
+
+export const updateBuildingById = createAsyncThunk(
+  'buildings/updateBuildingById',
+  async (params: any, { rejectWithValue }) => {
+    const response = await params.context.updateBuildingById(params.projectId, params.body);
+    const data = await response.json();
+    if (response.status > 202) {
+      return rejectWithValue(data?.message);
+    }
+    return data;
+  }
+);
+
+export const deleteBuildingById = createAsyncThunk(
+  'buildings/deleteBuildingById',
+  async (params: any, { rejectWithValue }) => {
+    const response = await params.context.deleteBuildingById(params.projectId);
+    if (response.status > 202) {
+      return rejectWithValue('Error al eliminar el edificio');
     }
     return response;
   }
@@ -143,10 +141,10 @@ const buildingsSlice = createSlice({
       state.getBuildings.loadingBuildings = true;
     });
     builder.addCase(getAllBuildings.fulfilled, (state, action) => {
-      const { buildings, ...rest } = action.payload;
+      const { projects, ...rest } = action.payload;
 
       state.getBuildings.loadingBuildings = false;
-      state.getBuildings.dataBuildings = buildings;
+      state.getBuildings.dataBuildings = projects;
       state.getBuildings.pageInfoBuildings = rest;
       state.getBuildings.errorBuildings = '';
     });
@@ -166,6 +164,48 @@ const buildingsSlice = createSlice({
     builder.addCase(getBuildingById.rejected, (state, action) => {
       state.getBuildingById.loadingBuildingById = false;
       state.getBuildingById.errorBuildingById = action.payload as string;
+    });
+
+    // Casos para createBuilding
+    builder.addCase(createBuilding.pending, (state) => {
+      state.createBuilding.loadingCreateBuilding = true;
+    });
+    builder.addCase(createBuilding.fulfilled, (state, action) => {
+      state.createBuilding.loadingCreateBuilding = false;
+      state.createBuilding.successCreateBuilding = action.payload;
+      state.createBuilding.errorCreateBuilding = '';
+    });
+    builder.addCase(createBuilding.rejected, (state, action) => {
+      state.createBuilding.loadingCreateBuilding = false;
+      state.createBuilding.errorCreateBuilding = action.payload as string;
+    });
+
+    // Casos para updateBuildingById
+    builder.addCase(updateBuildingById.pending, (state) => {
+      state.updateBuildingById.loadingUpdateBuilding = true;
+    });
+    builder.addCase(updateBuildingById.fulfilled, (state, action) => {
+      state.updateBuildingById.loadingUpdateBuilding = false;
+      state.updateBuildingById.successUpdateBuilding = action.payload;
+      state.updateBuildingById.errorUpdateBuilding = '';
+    });
+    builder.addCase(updateBuildingById.rejected, (state, action) => {
+      state.updateBuildingById.loadingUpdateBuilding = false;
+      state.updateBuildingById.errorUpdateBuilding = action.payload as string;
+    });
+
+    // Casos para deleteBuildingById
+    builder.addCase(deleteBuildingById.pending, (state) => {
+      state.deleteBuildingById.loadingDeleteBuilding = true;
+    });
+    builder.addCase(deleteBuildingById.fulfilled, (state, action) => {
+      state.deleteBuildingById.loadingDeleteBuilding = false;
+      state.deleteBuildingById.successDeleteBuilding = action.payload;
+      state.deleteBuildingById.errorDeleteBuilding = '';
+    });
+    builder.addCase(deleteBuildingById.rejected, (state, action) => {
+      state.deleteBuildingById.loadingDeleteBuilding = false;
+      state.deleteBuildingById.errorDeleteBuilding = action.payload as string;
     });
   }
 });
